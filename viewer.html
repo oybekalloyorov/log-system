@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Live Logs</title>
+</head>
+
+<body>
+
+  <h2>Live Logs</h2>
+
+  <pre id="logs"></pre>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+  <script>
+
+    const socket = io("http://localhost:3000");
+
+    socket.on("log", (data) => {
+
+      const logs = document.getElementById("logs");
+
+      logs.textContent += data;
+
+    });
+
+  </script>
+
+</body>
+
+</html>
