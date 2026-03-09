@@ -15,14 +15,25 @@
 
   <script>
 
-    const socket = io("http://localhost:3000");
+    const logsEl = document.getElementById("logs");
+
+    // Eski loglarni yuklash
+    async function loadOldLogs() {
+      const res = await fetch("http://localhost:3001/test/logs");
+      const data = await res.json();
+      data.logs.forEach(line => {
+        logsEl.textContent += line + "\n";
+      });
+    }
+
+    // Avval eski loglarni yukla
+    loadOldLogs();
+
+    // Keyin real-time loglarni tinglash
+    const socket = io("http://localhost:3001");
 
     socket.on("log", (data) => {
-
-      const logs = document.getElementById("logs");
-
-      logs.textContent += data;
-
+      logsEl.textContent += data;
     });
 
   </script>
